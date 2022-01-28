@@ -1,0 +1,24 @@
+version: '2.4'
+
+services:
+  infra:
+    restart: always
+    image: philophilo/fire-infra
+    build: .
+    environment:
+      AWS_SECRET_KEY: $AWS_SECRET_KEY
+      AWS_ACCESS_KEY: $AWS_ACCESS_KEY
+      REGION: $REGION
+      KEY: $KEY
+      BUCKET: $BUCKET
+    volumes:
+      - ${PWD}:/app
+    stdin_open: true
+    tty: true
+    container_name: fire-infra
+    networks:
+      - fire-net
+
+networks:
+  fire-net:
+    driver: bridge
