@@ -1,0 +1,16 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: $NAMESPACE
+  name: ingress-app
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: kube.philophilo.xyz
+      http:
+        paths:
+        - backend:
+            serviceName: backed-service
+            servicePort: 80
