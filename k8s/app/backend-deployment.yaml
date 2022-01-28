@@ -21,7 +21,7 @@ spec:
         environment: test
     spec:
       containers:
-        - image: philophilo/fire-exp
+        - image: $BACKEND_IMAGE
           imagePullPolicy: Always
           name: backend
           envFrom:
