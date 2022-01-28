@@ -1,0 +1,8 @@
+*.env
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.lock
+terraform.tfstate.backup
+delete-domain-out.json
+create-domain-out.json
