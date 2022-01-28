@@ -69,3 +69,15 @@ jobs:
             echo "[default]" >> ~/.aws/config
             echo "region =${REGION}" >> ~/.aws/config
             make deploy
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - plan
+      - deploy:
+          requires:
+            - plan
+          filters:
+            branches:
+              only:
+                - master
