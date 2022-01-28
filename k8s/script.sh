@@ -1,5 +1,8 @@
 #! /bin/bash
-export $(cat .env | xargs)
+
+if [[ $ENV != "testing" ]]; then
+    export $(cat .env | xargs)
+fi
 
 aws eks update-kubeconfig --name fire-cluster
 
@@ -52,12 +55,11 @@ function delete_nginx_ingress {
     kubectl delete -f ingress/namespace.yaml
 }
 
-function ingress {
+function config_ingress {
     envsubst < ingress/ingress.yaml | kubectl apply -f -
 }
 
 function get_rout53_dns {
-    export DOMAIN="kube.philophilo.xyz"
     export HOSTED_ZONE_ID=$(aws route53 list-hosted-zones | jq '.HostedZones| .[0] | .Id' | sed 's:.*/::' | tr -d '"')
     DNS_RECORD=$(aws route53 list-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --query "ResourceRecordSets[?Name == '$DOMAIN.']")
     dns_state=false
@@ -85,7 +87,6 @@ function get_rout53_dns {
 }
 
 function create_lb_dns {
-    export DNS=$(kubectl get svc --namespace=nginx-ingress | grep nginx-ingress | awk '{print $4}')
     envsubst < create-domain.json > create-domain-out.json
     aws route53 change-resource-record-sets \
     --hosted-zone-id $HOSTED_ZONE_ID \
@@ -93,22 +94,25 @@ function create_lb_dns {
 }
 
 function delete_lb_dns {
-    export DNS="a3c498f201fcb42f396251695019fefa-1815518953.us-east-2.elb.amazonaws.com"
     envsubst < delete-domain.json > delete-domain-out.json
     aws route53 change-resource-record-sets \
     --hosted-zone-id $HOSTED_ZONE_ID \
     --change-batch file://delete-domain-out.json
 }
 
+function get_lb_dns {
+    export DNS="$(kubectl get svc --namespace=nginx-ingress | grep nginx-ingress | awk '{print $4}')"
+}
+
 if [[ $1 == "create" ]]; then
     create_nginx_ingress
     deploy_app
-    ingress
+    config_ingress
+    get_lb_dns
     get_rout53_dns create
 elif [[ $1 == "delete" ]]; then
-    export DNS="$(kubectl get svc --namespace=nginx-ingress | grep nginx-ingress | awk '{print $4}')"
+    get_lb_dns
     delete_app
     delete_nginx_ingress
     get_rout53_dns delete
 fi
-
