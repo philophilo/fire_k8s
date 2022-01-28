@@ -1,0 +1,17 @@
+{
+    "Comment": "Create record for k8s ingress",
+    "Changes": [
+        {
+            "Action"              : "CREATE",
+            "ResourceRecordSet"  : {
+                "Name"              : "${DOMAIN}",
+                "Type"             : "CNAME",
+                "TTL"              : 300,
+                "ResourceRecords"  : [
+                    {
+                        "Value"         : "${DNS}"
+                    }
+                ]
+        }
+    }]
+}

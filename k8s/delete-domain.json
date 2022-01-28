@@ -1,0 +1,17 @@
+{
+    "Comment": "Delete record for k8s ingress",
+    "Changes": [
+        {
+            "Action"              : "DELETE",
+            "ResourceRecordSet"  : {
+                "Name"              : "${DOMAIN}",
+                "Type"             : "CNAME",
+                "TTL"              : 300,
+                "ResourceRecords"  : [
+                    {
+                        "Value"         : "${DNS}"
+                    }
+                ]
+        }
+    }]
+}
