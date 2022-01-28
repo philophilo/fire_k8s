@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: $NAMESPACE
+  name: backed-service
+  labels:
+    environment: test
+    app: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP 

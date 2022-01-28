@@ -1,0 +1,37 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: $NAMESPACE
+  name: backend-deployment
+  labels:
+    environment: test
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+      environment: test
+  template:
+    metadata:
+      labels:
+        app: backend
+        environment: test
+    spec:
+      containers:
+        - image: philophilo/fire-exp
+          imagePullPolicy: Always
+          name: backend
+          envFrom:
+            - configMapRef:
+                name: app-variables
+          ports:
+          - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 3

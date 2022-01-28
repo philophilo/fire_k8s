@@ -1,0 +1,40 @@
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: $NAMESPACE
+  name: db
+spec:
+  serviceName: db
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
+      app: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: api
+        app: db
+    spec:
+      containers:
+      - image: postgres:10.1 
+        name: db
+        imagePullPolicy: Always
+        volumeMounts:
+          - name: db-disk
+            mountPath: /data
+        envFrom:
+          - configMapRef:
+              name: database-variables
+        ports:
+        - containerPort: 5432
+  volumeClaimTemplates:
+  - metadata:
+      name: db-disk
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 4Gi
