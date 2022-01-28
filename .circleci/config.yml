@@ -1,0 +1,41 @@
+version: 2.1
+default: &default
+  working_directory: /app
+  docker:
+    - image: philophilo/fire-infra
+      auth:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+      environment:
+        DATABASE_USER: $DATABASE_USER
+        DATABASE_PASSWORD: $DATABASE_PASSWORD
+        DATABASE_NAME: $DATABASE_NAME
+        DATABASE_PORT: $DATABASE_PORT
+        SECRET_KEY: $SECRET_KEY
+        EMAIL_HOST: $EMAIL_HOST
+        EMAIL_PORT: $EMAIL_PORT
+        EMAIL_HOST_USER: $EMAIL_HOST_USER
+        EMAIL_HOST_PASSWORD: $EMAIL_HOST_PASSWORD
+        PGDATA: $PGDATA
+        KEY: $KEY
+        BUCKET: $BUCKET
+
+aws: &aws
+  run:
+    command: |
+      mkdir -p ~/.aws
+      echo "[default]" > ~/.aws/credentials
+      echo "aws_access_key_id = ${AWS_ACCESS_KEY}" >> ~/.aws/credentials
+      echo "aws_secret_access_key = ${AWS_SECRET_KEY}" >> ~/.aws/credentials
+      echo "[default]" >> ~/.aws/config
+      echo "region =${REGION}" >> ~/.aws/config
+
+jobs:
+  build:
+    <<: *default
+    <<: *aws
+    steps:
+      - checkout
+      - run:
+          command: |
+            make deploy
