@@ -6,3 +6,4 @@ terraform.tfstate.lock
 terraform.tfstate.backup
 delete-domain-out.json
 create-domain-out.json
+terraform/kubeconfig_fire-cluster
