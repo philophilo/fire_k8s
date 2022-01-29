@@ -1,9 +1,14 @@
 #! /bin/bash
 
-if [[ $ENV != "testing" ]]; then
-    export $(cat .env | xargs)
-fi
+# configre aws cli
+mkdir -p ~/.aws
+echo "[default]" > ~/.aws/credentials
+echo "aws_access_key_id = ${AWS_ACCESS_KEY}" >> ~/.aws/credentials
+echo "aws_secret_access_key = ${AWS_SECRET_KEY}" >> ~/.aws/credentials
+echo "[default]" >> ~/.aws/config
+echo "region =${REGION}" >> ~/.aws/config
 
+# update kubectl context
 aws eks update-kubeconfig --name fire-cluster
 
 function create_nginx_ingress {
