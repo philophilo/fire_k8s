@@ -42,6 +42,7 @@ PGDATA='/data/pgdata'
 TLS_CRT=
 TLS_KEY=
 DOMAIN=
+ENV=dev
 ```
 Use `philophilo/test` for testing purposes in a local environment
 The default [secrets](https://github.com/nginxinc/kubernetes-ingress/blob/master/deployments/common/default-server-secret.yaml) (TLS_CRT and TLS_KEY) in the kubernetes repository can also work
