@@ -27,7 +27,14 @@ destroy:
 		/bin/bash script.sh delete
 	@cd terraform && \
 		terraform destroy -auto-approve
-	
+
+fmt:
+	@echo Format Terraform scripts
+	@cd terraform && \
+		terraform fmt
+
+# docker-compose
+
 local:
 	@echo Setting up local environment
 	@docker-compose up -d
