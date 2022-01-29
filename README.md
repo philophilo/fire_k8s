@@ -46,6 +46,7 @@ ENV=dev
 ```
 Use `philophilo/test` for testing purposes in a local environment
 The default [secrets](https://github.com/nginxinc/kubernetes-ingress/blob/master/deployments/common/default-server-secret.yaml) (TLS_CRT and TLS_KEY) in the kubernetes repository can also work
+The `ENV=dev` environment variable is used for the local environment to configure AWS in the container. Otherwise in circleci it will be installed in the root user's home directory.
 
 ### Quick local setup
 When the credentials have been setup, run `make local`. This will setup the docker container and ready for use.
