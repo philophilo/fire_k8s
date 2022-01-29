@@ -1,5 +1,5 @@
 ---
-
+# application deployment, using 2 replicas
 apiVersion: apps/v1
 kind: Deployment
 metadata:

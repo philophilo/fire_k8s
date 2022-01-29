@@ -1,3 +1,6 @@
+---
+# Configure NGINX to use the PROXY protocol so that
+# proxy information is passed to the Ingress Controller
 kind: ConfigMap
 apiVersion: v1
 metadata:

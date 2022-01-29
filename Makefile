@@ -1,3 +1,4 @@
+# Infrastrusture
 init:
 	@echo initializing terraform
 	@cd terraform && \

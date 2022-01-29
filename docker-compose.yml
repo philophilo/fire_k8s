@@ -27,6 +27,7 @@ services:
       TLS_CRT: $TLS_CRT
       TLS_KEY: $TLS_KEY
       DOMAIN: $DOMAIN
+      ENV: $ENV
     volumes:
       - ${PWD}:/app
     stdin_open: true

@@ -1,9 +1,14 @@
+# environment variables
 *.env
+
+# terraform manifests
 .terraform
 .terraform.lock.hcl
 terraform.tfstate
 terraform.tfstate.lock
 terraform.tfstate.backup
+terraform/kubeconfig_fire-cluster
+
+# aws-cli output
 delete-domain-out.json
 create-domain-out.json
-terraform/kubeconfig_fire-cluster

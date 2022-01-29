@@ -1,4 +1,5 @@
 ---
+# Application's ingress
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
