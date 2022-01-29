@@ -43,3 +43,11 @@ local:
 down:
 	@echo Stopping the local environment
 	@docker-compose down
+
+# build docker image
+
+build-ci:
+	@docker build -t philophilo/fire-infra .circleci/
+
+push-ci: build-ci
+	@docker push philophilo/fire-infra
