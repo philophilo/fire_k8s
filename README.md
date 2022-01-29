@@ -57,6 +57,8 @@ ENV=dev
 
 - The `DOMAIN` variable will be used to access the application (such as `http://sample.example.com`). It will be added to Route53 as a CNAME record.
 
+- Terraform uses s3 as the backend, therefore, `$BUCKET`, `$KEY` and `$REGION` must be [provided](https://github.com/philophilo/fire_k8s/blob/d2fc1d43ac53bfa94d551926b660e3bd05666bc7/Makefile#L5-L8)
+
 ### Quick local setup
 When the credentials have been setup, run `make local`. This will setup the docker container and ready for use.
 `make down` will stop and remove the container that was created earlier.
@@ -80,6 +82,10 @@ The rest of the make commands can be used inside the container.
 `make local` Creates a local development environment in a Docker container with Docker-compose
 
 `make down` Stops and removes the container used for local development
+
+`make build-ci` Builds the Docker image used to run deployments in Circleci 
+
+`make push-ci` Runs `build-ci` target and pushes the Circleci to Docker hub
 
 ### Continuous Integration (CI)
 A push to master or merge into master will trigger `terraform plan` on Circleci and `terraform apply -auto-approve`. Otherwise any other branches will run `terraform plan`. These are run using `make deploy` as seen in the [Circlci configuration](https://github.com/philophilo/fire_k8s/blob/master/.circleci/config.yml#L71).
