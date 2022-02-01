@@ -13,7 +13,7 @@ The repository holds infrastructure code for [fire_app](https://github.com/philo
 ```
 
 ### Setup
-Clone the repository and create `.env` file in the docker directory and add the following creadentials
+Clone the repository and create `.env` file in the root directory and add the following creadentials
 
 ```
 git clone https://github.com/philophilo/fire_k8s.git
