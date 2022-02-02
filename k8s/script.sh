@@ -14,7 +14,7 @@ if [[ $ENV == "dev" ]]; then
     echo "[default]" > ~/.aws/credentials
     echo "aws_access_key_id = ${AWS_ACCESS_KEY}" >> ~/.aws/credentials
     echo "aws_secret_access_key = ${AWS_SECRET_KEY}" >> ~/.aws/credentials
-    echo "[default]" >> ~/.aws/config
+    echo "[default]" > ~/.aws/config
     echo "region =${REGION}" >> ~/.aws/config
 fi
 
