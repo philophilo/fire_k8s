@@ -134,10 +134,10 @@ if [[ $1 == "create" ]]; then
     deploy_app
     config_ingress
     get_lb_dns
-    get_rout53_dns create
+    get_rout53_dns $1
 elif [[ $1 == "delete" ]]; then
     get_lb_dns
     delete_app
     delete_nginx_ingress
-    get_rout53_dns delete
+    get_rout53_dns $1
 fi
