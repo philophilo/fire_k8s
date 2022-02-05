@@ -14,7 +14,7 @@ if [[ $ENV == "dev" ]]; then
     echo "[default]" > ~/.aws/credentials
     echo "aws_access_key_id = ${AWS_ACCESS_KEY}" >> ~/.aws/credentials
     echo "aws_secret_access_key = ${AWS_SECRET_KEY}" >> ~/.aws/credentials
-    echo "[default]" >> ~/.aws/config
+    echo "[default]" > ~/.aws/config
     echo "region =${REGION}" >> ~/.aws/config
 fi
 
@@ -134,10 +134,10 @@ if [[ $1 == "create" ]]; then
     deploy_app
     config_ingress
     get_lb_dns
-    get_rout53_dns create
+    get_rout53_dns $1
 elif [[ $1 == "delete" ]]; then
     get_lb_dns
     delete_app
     delete_nginx_ingress
-    get_rout53_dns delete
+    get_rout53_dns $1
 fi

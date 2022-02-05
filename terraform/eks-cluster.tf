@@ -16,7 +16,6 @@ module "eks" {
       name                          = "worker-group-2"
       instance_type                 = "t3.large"
       additional_userdata           = "echo foo bar"
-      additional_security_group_ids = [aws_security_group.ssh.id]
       asg_desired_capacity          = 1
     },
   ]
