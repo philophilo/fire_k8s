@@ -3,7 +3,7 @@ module "eks" {
   version         = "17.24.0"
   cluster_name    = local.cluster_name
   cluster_version = "1.20"
-  subnets         = module.vpc.private_subnets
+  subnets         = module.vpc.public_subnets
 
   vpc_id = module.vpc.vpc_id
 
@@ -16,10 +16,11 @@ module "eks" {
       name                          = "worker-group-2"
       instance_type                 = "t3.large"
       additional_userdata           = "echo foo bar"
-      additional_security_group_ids = [aws_security_group.ssh.id]
       asg_desired_capacity          = 1
     },
   ]
+
+  workers_additional_policies = [aws_iam_policy.worker_policy.arn]
 
 }
 
